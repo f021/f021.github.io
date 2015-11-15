@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>shaper 0.0.001</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <section id="output">
+      <form name="coordinates">      
+        <button  type="button" name="collapse" class="collapse">-</button>
+        <fieldset name="coordinates">
+          <legend>info:</legend>
+          <input type="text" name="size" value="w: , h:" readonly disabled/>
+          <input type="text" name="xy" value="x: , y:" readonly disabled/>
+          <input type="text" name="rgb" value="rgb:" readonly disabled/>
+        </fieldset>
+      </form><!--coordinates-->
+
+      <form name="input">
+       <button  type="button" name="collapse" class="collapse">-</button>
+       <fieldset name="file">
+          <legend>file: </legend>
+          <input type="file" name="file" id="file" class="inputfile" />
+          <label for="file">Choose a file</label>
+          <button class="ok" type='button' name='create'>new canvas</button>
+        </fieldset>
+      </form>
+      <form>
+        <button  type="button" name="collapse" class="collapse">-</button>     
+          <fieldset name="show">
+            <legend>show/hide</legend>
+            <div classs="flex row">
+              <label><input type="checkbox" name="showImage" checked>image</label>
+              <label><input type="checkbox" name="showCurrent" checked>current<span class="hotkey">(c)</span></label>
+              <label><input type="checkbox" name="showShapes" checked>other<span class="hotkey">(v)</span></label>
+              <label><input type="checkbox" name="showNodes" checked>nodes</label>
+            </div>
+          </fieldset>   
+      </form>
+<!--       <form name="output">
+        <button  type="button" name="collapse" class="collapse">-</button>
+        <fieldset name="type">
+          <legend>output:</legend>
+          <select>
+            <option value="p5js">p5.js</option>
+            <option value="array">array</option>
+            <option value="json">JSON</option>
+          </select>
+          <button type="button" name="copy">copy to buffer</button>
+          <button type="submit" name="save">save to file</button>
+          <label><input type="checkbox" name="withColor" checked>with color</label>
+        </fieldset>
+      </form> -->
+      <form name="youCode">
+        <!-- <button  type="button" name="collapse" class="collapse">-</button> -->
+        <fieldset name="textarea">
+          <legend>your code:</legend>
+          <textarea name="text" rows="20" readonly placeholder="// you code here"></textarea>
+        </fieldset>
+      </form><!-- history -->
+    </section><!--#output-->    
+
+    <section id="draw">
+      <form name="img">
+      </form><!-- img -->
+    </section><!--#draw-->
+
+    <section id="toolbox">
+
+      <form name="toolbox">
+          <button  type="button" name="collapse" class="collapse">-</button>
+          <fieldset name="map">
+            <legend>navigator</legend>
+            <label>x offset:<span></span><input type="range" name="offsetX" value="0"></label>
+            <label>y offset:<span></span><input type="range" name="offsetY" value="0"></label>
+            <label>zoom:<span></span><input type="range" name="zoom" min="1" max="3" step="0.1" value="1"></label>
+            <button class="danger" type="button" name="reset">reset map</button>
+          </fieldset>
+        </form>
+
+        <form>
+          <button  type="button" name="collapse" class="collapse">-</button>
+          <fieldset name="nodes">
+            <legend>Nodes: </legend>
+            <label><input type="radio" name="node" value="line" checked id="nodeLine"/>line <span class="hotkey">(q)</span></label>
+            <label><input type="radio" name="node" value="quadratic" id="nodeCurve"/>quadratic <span class="hotkey">(e)</span></label>
+          </fieldset>
+        </form>
+
+        <form>
+          <button  type="button" name="collapse" class="collapse">-</button>
+          <fieldset name="path">
+            <legend>path:</legend>
+            <button class="ok" type="button" name="newPath">new <span class="hotkey">(r)</span></button>
+            <button class="danger" type="button" name="delPath">del <span class="hotkey">(x)</span></button>
+            <fieldset class="no-border">
+              <button class="info" type="button" name="nextPath">next <span class="hotkey">(a)</span></button>
+              <button class="info" type="button" name="prevPath">prev <span class="hotkey">(d)</span></button>
+            </fieldset>
+            <label>autodetect shape: <span class="hotkey">(spacebar)</span><input type="checkbox" name="fixedCurrent"/></label>
+          </fieldset>
+        </form><!-- toolbox -->
+
+
+        <form name="customize">
+
+            <button  type="button" name="collapse" class="collapse">-</button>
+          
+            <fieldset name="customize">
+
+              <legend>tuning shape:</legend>       
+             
+              <fieldset name="ou">
+                <legend>position</legend>
+                <button class="info" type="button"name="pathOver">over <span class="hotkey">(w)</span></button>
+                <button class="info" type="button" name="pathUnder">under <span class="hotkey">(u)</span></button>
+              </fieldset>
+
+              <fieldset>
+                <legend>shape</legend>
+                <div class="flex row">
+                  <label><input type="checkbox" name="strokePath" checked/>stroke</label>  
+                  <label><input type="checkbox" name="closePath" />close</label>  
+                  <label><input type="checkbox" name ="fillPath" />fill</label>
+                </div>
+              </fieldset>
+
+              <fieldset name="colors">
+                <legend>colors: </legend>
+                <label>stoke: <input type="color" name="pathColor" id="pathColor"  value="#000000"></label>
+                <label>fill: <input type="color" name="fillColor" id="fillColor" value="#CCCCCC"></label>
+              </fieldset>
+          
+              <fieldset>
+                <legend>stroke:</legend>
+                <label>width:<span></span><input type="range" name="lineWidth" min="0.1" max="10" value="1" step=".1" /></label>
+              </fieldset>
+          
+              <fieldset>
+                <legend>opacity:</legend>
+                <label>stroke: <span></span><input type="range" name="lineOpacity" min="0" max="1" value="1" step=".1"></label> 
+                <label>fill: <span></span><input type="range" name="shapeOpacity" min="0" max="1" value="1" step=".1"></label> 
+              </fieldset>
+
+            </fieldset>
+
+          </form>
+
+      </section><!--#toolbox-->
+
+  </div><!--.container-->
+
+  <script src=js/main.js></script>
+
+  </body>
+</html>
+
+
+
