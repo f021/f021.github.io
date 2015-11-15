@@ -35,8 +35,8 @@
             <legend>show/hide</legend>
             <div classs="flex row">
               <label><input type="checkbox" name="showImage" checked>image</label>
-              <label><input type="checkbox" name="showCurrent" checked>current<span class="hotkey">(c)</span></label>
-              <label><input type="checkbox" name="showShapes" checked>other<span class="hotkey">(v)</span></label>
+              <label><input type="checkbox" name="showCurrent" checked>current(c)</label>
+              <label><input type="checkbox" name="showShapes" checked>other(v)</label>
               <label><input type="checkbox" name="showNodes" checked>nodes</label>
             </div>
           </fieldset>   
@@ -45,10 +45,10 @@
         <button  type="button" name="collapse" class="collapse">-</button>
         <fieldset name="type">
           <legend>output:</legend>
-          <select>
-            <option value="p5js">p5.js</option>
-            <option value="array">array</option>
-            <option value="json">JSON</option>
+          <select name="type">
+            <option id="p5js" value="p5js">p5.js</option>
+            <option id="array" value="array">array</option>
+            <option id="json" value="json">JSON</option>
           </select>
           <button type="button" name="copy">copy to buffer</button>
           <button type="submit" name="save">save to file</button>
@@ -59,6 +59,10 @@
         <!-- <button  type="button" name="collapse" class="collapse">-</button> -->
         <fieldset name="textarea">
           <legend>your code:</legend>
+          <select name="type">
+            <option id="p5js" value="p5js">p5.js</option>
+            <option id="json" value="json">JSON</option>
+          </select>
           <textarea name="text" rows="20" readonly placeholder="// you code here"></textarea>
         </fieldset>
       </form><!-- history -->
@@ -85,9 +89,9 @@
         <form>
           <button  type="button" name="collapse" class="collapse">-</button>
           <fieldset name="nodes">
-            <legend>Nodes: </legend>
-            <label><input type="radio" name="node" value="line" checked id="nodeLine"/>line <span class="hotkey">(q)</span></label>
-            <label><input type="radio" name="node" value="quadratic" id="nodeCurve"/>quadratic <span class="hotkey">(e)</span></label>
+            <legend>anchor point:</legend>
+            <label><input type="radio" name="node" value="line" checked id="nodeLine"/>line (q)</label>
+            <label><input type="radio" name="node" value="quadratic" id="nodeCurve"/>quadratic (e)</label>
           </fieldset>
         </form>
 
@@ -95,13 +99,13 @@
           <button  type="button" name="collapse" class="collapse">-</button>
           <fieldset name="path">
             <legend>path:</legend>
-            <button class="ok" type="button" name="newPath">new <span class="hotkey">(r)</span></button>
-            <button class="danger" type="button" name="delPath">del <span class="hotkey">(x)</span></button>
+            <button class="ok" type="button" name="newPath">new (r)</button>
+            <button class="danger" type="button" name="delPath">del (x)</button>
             <fieldset class="no-border">
-              <button class="info" type="button" name="nextPath">next <span class="hotkey">(a)</span></button>
-              <button class="info" type="button" name="prevPath">prev <span class="hotkey">(d)</span></button>
+              <button class="info" type="button" name="nextPath">next (a)</button>
+              <button class="info" type="button" name="prevPath">prev (d)</button>
             </fieldset>
-            <label>autodetect shape: <span class="hotkey">(spacebar)</span><input type="checkbox" name="fixedCurrent"/></label>
+            <label>autodetect path: (spacebar)<input type="checkbox" name="fixedCurrent"/></label>
           </fieldset>
         </form><!-- toolbox -->
 
@@ -116,12 +120,12 @@
              
               <fieldset name="ou">
                 <legend>position</legend>
-                <button class="info" type="button"name="pathOver">over <span class="hotkey">(w)</span></button>
-                <button class="info" type="button" name="pathUnder">under <span class="hotkey">(u)</span></button>
+                <button class="info" type="button"name="pathOver">up (w)</button>
+                <button class="info" type="button" name="pathUnder">down (u)</button>
               </fieldset>
 
               <fieldset>
-                <legend>shape</legend>
+                <legend>path:</legend>
                 <div class="flex row">
                   <label><input type="checkbox" name="strokePath" checked/>stroke</label>  
                   <label><input type="checkbox" name="closePath" />close</label>  
@@ -153,6 +157,28 @@
       </section><!--#toolbox-->
 
   </div><!--.container-->
+
+
+     <div class="help">
+      <div class="msg">
+        <h1>Hello!</h1>
+        <p>choose file, make shapes, have a fun with p5.js</p>
+        <h5>Hotkeys:</h5>
+        <ul>
+          <li>q: line anchor point</li>
+          <li>e: quadratic anchor point</li>
+          <li>r: new shape</li>
+          <li>a: prev shape</li>
+          <li>d: next shape</li>
+          <li>x: delete shape</li>
+          <li>w: up shape</li>
+          <li>s: down shape</li>
+          <li>alt+click: delete anchor point</li>
+          <li>spacebar: autodetect shapes</li>
+          <li>v: show all shapes/ show current shape</li>
+        </ul>
+      </div>
+    </div> 
 
   <script src=js/main.js></script>
 

@@ -9,6 +9,7 @@
       const $ = str => document.querySelector(str);
       const _ = str => $(`input[name=${str}]`);
       const is = str => _(str).checked;
+      let firstClick = true;
 
       // const imgBox = $('.img-box');
       const imgBox = $('form[name=img]');
@@ -60,10 +61,13 @@
       };
 
       const btn = {
-        create () {
+          create () {
+          $('form[name=toolbox').className = 'hide';  // don't work in new canvas mode !!!!
           let obj = createCanvas(size(imgBox));
           canvas = obj.canvas;
           ctx = obj.ctx;
+          setRange('input[name=offsetX]', canvas.width);
+          setRange('input[name=offsetY]', canvas.height);
           listenCanvas();
           btn.launch();
         },
@@ -119,7 +123,7 @@
           
         // },
 
-        show () {console.log(this.arr) },
+        // show () {console.log(this.arr) },
 
         drawRect () {
           this.arr.forEach(elm => { ctx.beginPath(); elm.draw()});
@@ -134,7 +138,7 @@
             elm = anchorType[who('node')](pos);
           }  
           this.arr.push(elm);
-          console.log('add anchor: ', elm);
+          // console.log('add anchor: ', elm);
         },
 
         drawPath () {
@@ -237,7 +241,9 @@ ${ this.closePath && 'endShape(CLOSE);' || 'endShape();'}\n`;
 
       let method = {
 
-        renew() { btn.create(); },
+        json () { $('textarea').value = arr.map(e => JSON.stringify(e, null, ' '));},
+
+        renew () { btn.create(); },
 
         update (e) { current[e.target.name] = e.target.value; },
 
@@ -333,7 +339,7 @@ ${arr.map((e,i) => `// shape #${i}\n${e.toString(type)}`).join('\n')}`;
             };
         },
 
-        show() {console.log(arr)},
+        // show() {console.log(arr)},
         get () {return current} // ugly
       };
 
@@ -416,9 +422,10 @@ ${arr.map((e,i) => `// shape #${i}\n${e.toString(type)}`).join('\n')}`;
       const moveDot = pos => {
         return Object.assign(
           lineDot(pos),
-          { path (context) { (context || ctx).moveTo(this.x, this.y)} ,
+          Object.create({
+            path (context) { (context || ctx).moveTo(this.x, this.y)} ,
             write: { p5js: 'vertex', js: 'moveTo'}
-          }
+          })
         );
       };
 
@@ -473,18 +480,23 @@ ${arr.map((e,i) => `// shape #${i}\n${e.toString(type)}`).join('\n')}`;
 
       const draw = () => {
         let map = mapping();
-        scene.write();
+        if ( $('#p5js').selected) { scene.write(); };
+        if ( $('#json').selected) { scene.json(); };
+        // scene.write();
         scene.clear();
         ctx.setTransform(map.z, 0, 0, map.z, map.x, map.y);
         if (img && is('showImage')) {
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         }
-
         scene.drawPath(map);
         if (is('showNodes') && is('showCurrent')) scene.drawRect(map);
       };
 
       document.body.addEventListener('click', e => {
+        if (firstClick) {
+          $('.help').classList.toggle('hide');
+          firstClick = false;
+        };
         if (e.target.type === 'button') {
           btn[e.target.name](e);
         };
@@ -526,7 +538,7 @@ ${arr.map((e,i) => `// shape #${i}\n${e.toString(type)}`).join('\n')}`;
             _('showCurrent').checked = !is('showCurrent');
             break;
           default:
-            console.log(`pressed ${e.keyCode}`);
+            // console.log(`pressed ${e.keyCode}`);
         };
       });
 
@@ -633,7 +645,7 @@ ${arr.map((e,i) => `// shape #${i}\n${e.toString(type)}`).join('\n')}`;
         });
 
 
-        canvas.addEventListener('mousewheel', e => console.log(e.deltaY));
+        // canvas.addEventListener('mousewheel', e => console.log(e.deltaY));
     }
 
 
