@@ -75,8 +75,6 @@ var main =
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// const test = 'https://soundcloud.com/max-richter/this-bitter-earth-on-the';
-	
 	// set up CORS for SoundCloud output to prevent
 	// MediaElementAudioSource outputs zeroes due to CORS access restrictions
 	// https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes
