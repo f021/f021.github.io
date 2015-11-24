@@ -118,8 +118,8 @@ var main =
 	  };
 	
 	  var activity = (0, _sleep2.default)({
-	    sleepAfter: 10000,
-	    step: 100,
+	    sleepAfter: 5000,
+	    step: 1000,
 	    elm: document.querySelector('#footer'),
 	    lastActivity: new Date().valueOf()
 	  });
@@ -361,8 +361,6 @@ var main =
 	});
 	var li = function li(state) {
 	
-	  // const rendTag = (tag, value) => `<${tag}></${tag}>`;
-	
 	  if (state.kind === 'track') {
 	
 	    var template = '\n      ' + (state.artwork_url !== null && '<img src=\'' + state.artwork_url + '\'>' || '') + '\n      <h1>' + state.title + '</h1>\n      <p>' + state.description + '</p>\n    ';
@@ -384,7 +382,7 @@ var main =
 	    document.body.appendChild(elm);
 	  };
 	
-	  elm.innerHTML = '\n    <ul class="soundtrack-info">\n      <li class=\'user\'>\n        <a href=\'' + state.user.permalink_url + '\'>\n          ' + state.user.username + '\n        </a>\n      </li>\n      <li class=\'title\'>\n        <a href=\'' + state.permalink_url + '\'>\n          <p>' + state.title + '</p>\n        </a>\n      </li>\n      <li class=\'soundcloud-logo\'>\n        <a href=\'' + state.permalink_url + '\'>\n          <img src=\'./img/logo_white.png\'>\n        </a>\n      </li>\n    </ul>';
+	  elm.innerHTML = '\n    <ul class="soundtrack-info">\n      <li class=\'user\'>\n        <a href=\'' + state.user.permalink_url + '\'>\n          ' + state.user.username + ':\n        </a>\n      </li>\n      <li class=\'title\'>\n        <a href=\'' + state.permalink_url + '\'>\n          ' + state.title + '\n        </a>\n      </li>\n      <li class=\'soundcloud-logo\'>\n        <a href=\'' + state.permalink_url + '\'>\n          <img src=\'./img/logo_white.png\'>\n        </a>\n      </li>\n    </ul>';
 	};
 	
 	exports.renderInfo = renderInfo;
