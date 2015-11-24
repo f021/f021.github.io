@@ -51,25 +51,25 @@ var main =
 	
 	var _soundcloud2 = _interopRequireDefault(_soundcloud);
 	
-	var _audioNodeAnalyser = __webpack_require__(3);
+	var _audioNodeAnalyser = __webpack_require__(4);
 	
 	var _audioNodeAnalyser2 = _interopRequireDefault(_audioNodeAnalyser);
 	
-	var _visualization = __webpack_require__(4);
+	var _visualization = __webpack_require__(5);
 	
 	var _visualization2 = _interopRequireDefault(_visualization);
 	
-	var _scene = __webpack_require__(5);
+	var _scene = __webpack_require__(6);
 	
 	var _scene2 = _interopRequireDefault(_scene);
 	
-	var _template = __webpack_require__(6);
+	var _template = __webpack_require__(7);
 	
-	var _playlist = __webpack_require__(7);
+	var _playlist = __webpack_require__(8);
 	
 	var _playlist2 = _interopRequireDefault(_playlist);
 	
-	var _sleep = __webpack_require__(8);
+	var _sleep = __webpack_require__(9);
 	
 	var _sleep2 = _interopRequireDefault(_sleep);
 	
@@ -79,7 +79,7 @@ var main =
 	// MediaElementAudioSource outputs zeroes due to CORS access restrictions
 	// https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes
 	
-	var draw = (0, _visualization2.default)(); // initialize canvas
+	var draw = (0, _visualization2.default)();
 	
 	var audio = new Audio();
 	audio.crossOrigin = 'Anonymous';
@@ -88,7 +88,7 @@ var main =
 	
 	var sound = (0, _soundcloud2.default)({ audio: audio });
 	sound.init();
-	sound.addTrack(17556576, render);
+	sound.addTrack(81253937, render);
 	
 	function render(track) {
 	
@@ -96,7 +96,8 @@ var main =
 	  (0, _template.renderInfo)(track);
 	
 	  var scene = (0, _scene2.default)(100);
-	  var gap = 5672;
+	  var gap = 1;
+	  var lines = 0;
 	
 	  var listen = function listen() {
 	    setInterval(function () {
@@ -110,10 +111,15 @@ var main =
 	    setInterval(function () {
 	      if (scene.ready()) {
 	        draw.clear();
-	        draw.sun(scene.get(), gap);
+	        draw.sun(scene.get().slice(lines), gap);
+	        gap += .2 * 5;
 	      };
 	    }, 1000 / 60);
 	  };
+	
+	  setInterval(function () {
+	    lines = Math.ceil(Math.random() * 100);
+	  }, 10000);
 	
 	  var activity = (0, _sleep2.default)({
 	    sleepAfter: 5000,
@@ -143,9 +149,11 @@ var main =
 	
 	var _soundCloudID2 = _interopRequireDefault(_soundCloudID);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var _xhr = __webpack_require__(3);
 	
-	// import xhr from './xhr';
+	var _xhr2 = _interopRequireDefault(_xhr);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var resolveStr = 'http://api.soundcloud.com/resolve?url=\'';
 	
@@ -157,7 +165,7 @@ var main =
 	      });
 	    },
 	    addTrack: function addTrack(trackID, render) {
-	      SC.get('/tracks/17556576', function (track) {
+	      SC.get('/tracks/' + trackID, function (track) {
 	        console.log(track);
 	        state.audio.src = track.stream_url + '?client_id=' + _soundCloudID2.default;
 	        render(track);
@@ -171,7 +179,7 @@ var main =
 	        });
 	      },
 	      byURL: function byURL(url) {
-	        xhr.get('' + resolveStr + url + '&client_id=' + _soundCloudID2.default, function (e) {
+	        _xhr2.default.get('' + resolveStr + url + '&client_id=' + _soundCloudID2.default, function (e) {
 	          return console.log(e);
 	        });
 	      }
@@ -203,6 +211,15 @@ var main =
 
 /***/ },
 /* 3 */
+/***/ function(module, exports) {
+
+	'use strict'
+	
+	//
+	;
+
+/***/ },
+/* 4 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -246,7 +263,7 @@ var main =
 	exports.default = audioAnalyse;
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -318,7 +335,7 @@ var main =
 	exports.default = createCanvas;
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -349,7 +366,7 @@ var main =
 	exports.default = scene;
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -387,7 +404,7 @@ var main =
 	exports.li = li;
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -395,10 +412,10 @@ var main =
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = [228230638, 81253937, 1626898, 41412809, 45226360, 41228131, 17556576, 45226360];
+	exports.default = [81253937, 1626898, 41228131, 17556576];
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
